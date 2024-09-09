@@ -1,0 +1,78 @@
+<!-- boton nueva tarea -->
+<button class="btn btn-primary mb-4" (click)="nuevaTarea()">
+    Nueva tarea
+</button>
+
+<!-- tarjetas para cada tarea -->
+<div class="card mb-2" *ngFor="let content of contenido; let i = index">
+    <div class="card-body">
+        <form>
+            <div class="mb-2">
+                <label class="form-label fw-bold">
+                    Tarea
+                </label>
+
+                <input type="text" [hidden]="!hiddenContent" [formControl]="tarea" class="form-control" placeholder="Nueva Tarea" #tareaContent>
+
+                <p [hidden]="hiddenContent">{{tareaContent.value}}</p>
+
+                <div class="alert alert-danger mt-2" [hidden]="tarea.valid || tarea.pristine">
+                    La tarea es obligatoria
+                </div>
+                
+            </div>
+            <div class="mb-2">
+                <label class="form-label fw-bold">
+                    Descripcion
+                </label>
+
+                <input type="text" [hidden]="!hiddenContent" [formControl]="descripcion" class="form-control" placeholder="Nueva descripcion" #descContent>
+
+                <p [hidden]="hiddenContent">{{descContent.value}}</p>
+
+                <div class="alert alert-danger mt-2" [hidden]="descripcion.valid || descripcion.pristine">
+                    <span *ngIf="descripcion.errors?.['required']">La descripcion es obligatoria</span>
+                </div>
+                
+            </div>
+
+
+            <!-- botones crud -->
+            <div class="mt-4">
+                <!-- Arreglar - falta implementacion -->
+                <button class="btn btn-primary">
+                    Añadir
+                </button>
+    
+                <!-- Arreglar - al hacer click elimina todas las tareas de la interfaz -->
+                <button class="btn btn-danger float-end ms-4" (click)="hiddenAlert = !hiddenAlert">
+                    Eliminar
+                </button>
+    
+                <!-- Arreglar - Al hacer click por segunda vez desaparece toda la tarjeta -->
+                <button class="btn btn-primary float-end" (click)="hiddenContent = !hiddenContent">
+                    Editar
+                </button>
+            </div>     
+
+            <!-- Alerta de eliminacion de tarjeta -->
+            <div class="alert alert-danger mt-2" [hidden]="hiddenAlert">
+                <p>¿Estás seguro/a de que quieres eliminar esta tarea?</p>
+                <button class="btn btn-primary" (click)="eliminarTarea(i)">
+                    Sí
+                </button>
+                <button class="btn btn-danger ms-4">
+                    No
+                </button>
+            </div>
+
+            
+
+        </form>
+    </div>
+</div>
+
+
+
+
+
